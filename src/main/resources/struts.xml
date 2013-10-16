@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+    <constant name="struts.enable.DynamicMethodInvocation" value="true"/>
+    <constant name="struts.devMode" value="true"/>
+
+    <package name="default" namespace="/" extends="struts-default">
+        
+        <default-action-ref name="index"/>
+		
+        <action name="index" class="org.apache.struts.example.crud.action.EmployeeAction" method="list">
+            <result name="success">/WEB-INF/jsp/employees.jsp</result>
+            <interceptor-ref name="basicStack"/>
+        </action>
+            <action name="*Employee" class="org.apache.struts.example.crud.action.EmployeeAction" method="{1}">
+            <result name="success" type="redirectAction">index</result>
+            <result name="cancel" type="redirectAction">index</result>
+            <result name="input">/WEB-INF/jsp/employeeForm.jsp</result>
+            <result name="error">/WEB-INF/jsp/error.jsp</result>
+            <interceptor-ref name="paramsPrepareParamsStack"/>            
+        </action>
+    </package>
+</struts>
